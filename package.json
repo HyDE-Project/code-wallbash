@@ -2,18 +2,21 @@
   "name": "wallbash",
   "displayName": "Wallbash",
   "description": "VSCode dynamic theme using wallbash",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/HyDE-Project/vscode-wallbash",
     "issues": "https://github.com/HyDE-Project/vscode-wallbash/issues",
     "pulls": "https://github.com/HyDE-Project/vscode-wallbash/pulls"
-  
   },
-    "license": "GPL",
+  "license": "GPL",
   "engines": {
     "vscode": "^1.95.0"
   },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "categories": [
     "Themes"
   ],
@@ -25,23 +28,25 @@
     "hyprland"
   ],
   "icon": "hyde.png",
-  "activationEvents": [ "wallbash.update" ] ,
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "wallbash.update",
-        "title": "Reload Wallbash Colors",
-        "category": "Color Update"
+        "command": "wallBash.update",
+        "title": "Update Colors",
+        "category": "Wallbash"
       }
     ],
     "configuration": {
       "title": "Wallbash",
       "properties": {
-        "wallbash.autoUpdate": {
+        "wallBash.autoUpdate": {
           "type": "boolean",
           "default": true,
-          "description": "Update automatically the theme when the wallbash color palette changes"
+          "description": "Update colors when wallbash changes"
         }
       }
     },
@@ -74,6 +79,6 @@
     "@vscode/test-electron": "^2.4.1"
   },
   "dependencies": {
-    "chokidar": "^3.5.2"
+    "chokidar": "^3.6.0"
   }
 }

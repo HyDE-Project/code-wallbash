@@ -1,3 +1,9 @@
+/*
+Special thanks to the author of the wal theme for the inspiration and the code
+https://github.com/dlasagno/vscode-wal-theme
+I managed to make it work somehow, but I'm not sure if it's the best way to do it.
+- khing
+*/
 import * as chokidar from 'chokidar';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -11,46 +17,40 @@ let autoUpdateWatcher: chokidar.FSWatcher|null = null;
 
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Initializing!\n');
-  console.log('walCachePath: \n', walCachePath);
-  console.log('targetPath: \n', targetPath);
 
+	// Register the update command
+	let disposable = vscode.commands.registerCommand('wallBash.update', populateColorThemes);
+	context.subscriptions.push(disposable);
 
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable =
-      vscode.commands.registerCommand('wallbash.update', populateColorThemes);
-  context.subscriptions.push(disposable);
+	// Start the auto update if enabled
+	if(vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
+		/*
+		 * Update theme at startup
+		 * Needed for when wal palette updates while vscode isn't running.
+		 * The timeout is required to overcome a limitation of vscode which
+		 * breaks the theme auto-update if updated too early at startup.
+		 */
+		setTimeout(populateColorThemes, 5000);
+		autoUpdateWatcher = autoUpdate();
+	}
 
-  // Start the auto update if enabled
-  if (vscode.workspace.getConfiguration().get('wallbash.autoUpdate')) {
-    /*
-     * Update theme at startup
-     * Needed for when wal palette updates while vscode isn't running.
-     * The timeout is required to overcome a limitation of vscode which
-     * breaks the theme auto-update if updated too early at startup.
-     */
-    setTimeout(populateColorThemes, 10000);
+	// Toggle the auto update in real time when changing the extension configuration
+	vscode.workspace.onDidChangeConfiguration(event => {
+		if(event.affectsConfiguration('wallBash.autoUpdate')) {
+			if(vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
+				if(autoUpdateWatcher === null) {
+					autoUpdateWatcher = autoUpdate();
+				}
+			}
+			else if(autoUpdateWatcher !== null) {
+				autoUpdateWatcher.close();
+				autoUpdateWatcher = null;
+			}
+		}
+	});
 
-    autoUpdateWatcher = autoUpdate();
-  }
-
-  // Toggle the auto update in real time when changing the extension
-  // configuration
-  vscode.workspace.onDidChangeConfiguration(event => {
-    if (event.affectsConfiguration('wallbash.autoUpdate')) {
-      if (vscode.workspace.getConfiguration().get('wallbash.autoUpdate')) {
-        if (autoUpdateWatcher === null) {
-          autoUpdateWatcher = autoUpdate();
-        }
-      } else if (autoUpdateWatcher !== null) {
-        autoUpdateWatcher.close();
-        autoUpdateWatcher = null;
-      }
-    }
-  });
 }
+
 
 export function deactivate() {
   // Close the watcher if active
@@ -68,13 +68,8 @@ function populateColorThemes() {
     if (err) {
       vscode.window.showErrorMessage(
           `Failed to copy the color palette: ${err}`);
-    } else {
-      vscode.window.showInformationMessage(
-          'Successfully updated the color palette');
-    }
+    } 
   });
-
-
 }
 
 
@@ -84,5 +79,21 @@ function populateColorThemes() {
  */
 function autoUpdate(): chokidar.FSWatcher {
   // Watch for changes in the color palette of wal
-  return chokidar.watch(walCachePath).on('change', populateColorThemes);
+  return chokidar.watch(walCachePath, { persistent: true }).on('change', () => {
+    console.log('Detected change in wal color palette');
+      fs.readFile(walCachePath, 'utf8', (err, data) => {
+        if (err) {
+        vscode.window.showErrorMessage(`Failed to read the color palette: ${err}`);
+        return;
+        }
+
+        // Check if the data contains the pattern <wallbash_*>
+        const pattern = /<wallbash_[^>]+>/;
+        if (!pattern.test(data)) {
+        populateColorThemes();
+        } else {
+        console.log('Dumb copy');
+        }
+      });
+  });
 }
