@@ -1,71 +1,41 @@
-# wallbash
+# Wallbash
 
-VSCode extension for Wallbash.
+Wallbash is a Visual Studio Code extension that automatically updates your theme based on wal's color palette.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Automatically updates the theme when the color palette changes.
+- Manual update command to refresh the theme.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Install the extension from the Visual Studio Code Marketplace.
+2. Configure the extension settings as needed.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Configuration
 
-## Requirements
+Wallbash provides the following configuration options:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### `wallbash.autoUpdate`
 
-## Extension Settings
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: Enable auto-update of the theme from wal's color palette.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+By default, the `wallbash.autoUpdate` setting is enabled. This means that Wallbash will automatically update your theme whenever the color palette changes. If you prefer to disable this feature, you can do so by adding the following to your `settings.json` file:
 
-For example:
+```json
+{
+  "wallbash.autoUpdate": false
+}
 
-This extension contributes the following settings:
+# Usage
+### Manual Update
+You can manually update the theme by running the Wallbash: Update command from the Command Palette (Ctrl+Shift+P or Cmd+Shift+P on macOS).
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+# Contributing
+Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
-## Known Issues
+# License
+This project is licensed under the MIT License.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code&#39;s Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
