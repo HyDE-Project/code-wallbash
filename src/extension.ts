@@ -93,7 +93,7 @@ function populateColorThemes() {
 }
 
 function initializeWallTemplates(enableThemeMode: boolean) {
-  const templateSource = path.join(__dirname, '..', 'wallbash', 'vscode.dcol');
+  const templateSource = path.join(__dirname, '..', 'wallbash', 'code.dcol');
   const wallWaysDir =
       path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'Wall-Ways');
   const wallDcolDir =
@@ -109,14 +109,14 @@ function initializeWallTemplates(enableThemeMode: boolean) {
     }
 
     fs.copyFile(
-        templateSource, path.join(wallDcolDir, 'vscode.dcol'), (err) => {
+        templateSource, path.join(wallDcolDir, 'code.dcol'), (err) => {
           if (err) {
             vscode.window.showErrorMessage(
                 `Failed to copy the template: ${err}`);
           }
         });
-    if (fs.existsSync(path.join(wallWaysDir, 'vscode.dcol'))) {
-      fs.unlink(path.join(wallWaysDir, 'vscode.dcol'), (err) => {
+    if (fs.existsSync(path.join(wallWaysDir, 'code.dcol'))) {
+      fs.unlink(path.join(wallWaysDir, 'code.dcol'), (err) => {
         if (err) {
           vscode.window.showErrorMessage(`Failed to remove the file: ${err}`);
         }
@@ -133,15 +133,15 @@ function initializeWallTemplates(enableThemeMode: boolean) {
     }
 
     fs.copyFile(
-        templateSource, path.join(wallWaysDir, 'vscode.dcol'), (err) => {
+        templateSource, path.join(wallWaysDir, 'code.dcol'), (err) => {
           if (err) {
             vscode.window.showErrorMessage(
                 `Failed to copy the template: ${err}`);
           }
         });
 
-    if (fs.existsSync(path.join(wallDcolDir, 'vscode.dcol'))) {
-      fs.unlink(path.join(wallDcolDir, 'vscode.dcol'), (err) => {
+    if (fs.existsSync(path.join(wallDcolDir, 'code.dcol'))) {
+      fs.unlink(path.join(wallDcolDir, 'code.dcol'), (err) => {
         if (err) {
           vscode.window.showErrorMessage(`Failed to remove the file: ${err}`);
         }

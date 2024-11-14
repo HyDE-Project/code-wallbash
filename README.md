@@ -10,7 +10,7 @@ Visual Studio Extension to generate Theme Colors using Wallbash
 ## Installation
 
 1. Install the extension from the Visual Studio Code Marketplace.
-2. This extension will copy `./wallbash/vscode.dcol` to your `~/.config/hyde/wallbash/Wall-Ways` directory by default.
+2. This extension will copy `./wallbash/code.dcol` to your `~/.config/hyde/wallbash/Wall-Ways` directory by default.
 
    > See: #wallBash.enableThemeMode
    >
@@ -44,7 +44,7 @@ By default, the `wallBash.autoUpdate` setting is enabled. This means that Wallba
 By default, the `wallBash.enableThemeMode` setting is disbaled. This means that Wallbash will automatically update your vscode colors whenever the color palette changes.
 You might be wondering why you would want to enable this feature.
 
-    By enabling the`wallBash.enableThemeMode` setting your favorite theme can ship a `vscode.dcol` file and you can use it to generate the theme colors.
+    By enabling the`wallBash.enableThemeMode` setting your favorite theme can ship a `code.dcol` file and you can use it to generate the theme colors.
 
 ```json
 {

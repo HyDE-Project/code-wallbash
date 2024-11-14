@@ -1,6 +1,5 @@
 ${cacheDir}/landing/vscode-wallbash.json
 {
-  "name": "wallbash",
   "colors": {
     "focusBorder": "#<wallbash_1xa1>",
     "foreground": "#<wallbash_txt1>",
