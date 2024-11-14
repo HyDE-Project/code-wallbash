@@ -56,13 +56,13 @@ You might be wondering why you would want to enable this feature.
 
 You can manually update the theme by running the Wallbash: Update command from the Command Palette (Ctrl+Shift+P).
 
+Please be sure to update any cache required. Run:
+
+`Hyde reload` to update any missing cache files.
+
 # Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request on GitHub.
-
-# License
-
-This project is licensed under the GPL License.
 
 # Acknowledgements
 
