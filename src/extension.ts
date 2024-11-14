@@ -1,8 +1,7 @@
 /*
-Special thanks to the author of the vscode wal theme for the inspiration and the code
-https://github.com/dlasagno/vscode-wal-theme
-I managed to make it work somehow, but I'm not sure if it's the best way to do
-it.
+Special thanks to the author of the vscode wal theme for the inspiration and the
+code https://github.com/dlasagno/vscode-wal-theme I managed to make it work
+somehow, but I'm not sure if it's the best way to do it.
 - khing
 */
 import * as chokidar from 'chokidar';
@@ -20,33 +19,28 @@ let autoUpdateWatcher: chokidar.FSWatcher|null = null;
 
 export function activate(context: vscode.ExtensionContext) {
   // Register the update command
-  let disposable =
-      vscode.commands.registerCommand('wallBash.update', populateColorThemes);
+  let disposable = vscode.commands.registerCommand(
+      'wallBash.update', enforceWallbashTheme, populateColorThemes);
+
+
   context.subscriptions.push(disposable);
 
   // Handle missing cache
   if (!fs.existsSync(walCachePath)) {
-    fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException | null) => {
+    fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException|null) => {
       if (err) {
-        vscode.window.showErrorMessage(
-            `Failed to initilize cache: ${err}`);
+        vscode.window.showErrorMessage(`Failed to initilize cache: ${err}`);
       }
     });
   }
 
   initializeWallTemplates(
-      vscode.workspace.getConfiguration().get<boolean>('wallBash.enableThemeMode') ??
+      vscode.workspace.getConfiguration().get<boolean>(
+          'wallBash.enableThemeMode') ??
       false);
 
   // Start the auto update if enabled
   if (vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
-    /*
-     * Update theme at startup
-     * Needed for when wal palette updates while vscode isn't running.
-     * The timeout is required to overcome a limitation of vscode which
-     * breaks the theme auto-update if updated too early at startup.
-     */
-    // setTimeout(populateColorThemes, 5000);
     populateColorThemes();
     autoUpdateWatcher = autoUpdate();
   }
@@ -56,7 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.workspace.onDidChangeConfiguration(event => {
     initializeWallTemplates(
         vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
-        false);        
+        false);
     if (event.affectsConfiguration('wallBash.autoUpdate')) {
       if (vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
         if (autoUpdateWatcher === null) {
@@ -71,6 +65,10 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 
+/**
+ * Deactivates the extension
+ * Closes the watcher if active
+ */
 export function deactivate() {
   // Close the watcher if active
   if (autoUpdateWatcher !== null) {
@@ -78,6 +76,22 @@ export function deactivate() {
   }
 }
 
+/**
+ * Enforces the Wallbash theme
+ */
+function enforceWallbashTheme() {
+  const currentTheme =
+      vscode.workspace.getConfiguration('workbench').get<string>('colorTheme');
+  if (currentTheme !== 'Wallbash') {
+    vscode.workspace.getConfiguration('workbench')
+        .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
+        .then(
+            (err) => {
+              vscode.window.showErrorMessage(
+                  `Failed to set color theme: ${err}`);
+            });
+  }
+}
 
 /**
  * Populates the color themes from the wal color palette
@@ -92,6 +106,10 @@ function populateColorThemes() {
   });
 }
 
+/**
+ * Initializes the wallbash templates
+ * @param enableThemeMode Whether to enable the theme mode
+ */
 function initializeWallTemplates(enableThemeMode: boolean) {
   const templateSource = path.join(__dirname, '..', 'wallbash', 'code.dcol');
   const wallWaysDir =
@@ -101,20 +119,19 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   if (enableThemeMode) {
     console.log('Theme Mode enabled');
-    vscode.window.showInformationMessage('Theme Mode enabled\nPlease refresh Theme manually');
+    vscode.window.showInformationMessage(
+        'Theme Mode enabled\nPlease refresh Theme manually');
     if (!fs.existsSync(wallDcolDir)) {
       vscode.window.showInformationMessage(
           'Wall-Dcol directory does not exist!\n Is HyDE installed?');
       return;
     }
 
-    fs.copyFile(
-        templateSource, path.join(wallDcolDir, 'code.dcol'), (err) => {
-          if (err) {
-            vscode.window.showErrorMessage(
-                `Failed to copy the template: ${err}`);
-          }
-        });
+    fs.copyFile(templateSource, path.join(wallDcolDir, 'code.dcol'), (err) => {
+      if (err) {
+        vscode.window.showErrorMessage(`Failed to copy the template: ${err}`);
+      }
+    });
     if (fs.existsSync(path.join(wallWaysDir, 'code.dcol'))) {
       fs.unlink(path.join(wallWaysDir, 'code.dcol'), (err) => {
         if (err) {
@@ -125,20 +142,19 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   } else {
     console.log('Dynamic Wallpaper Mode enabled');
-    vscode.window.showInformationMessage('Dynamic Mode enabled\nPlease refresh Theme/Wallpaper manually');
+    vscode.window.showInformationMessage(
+        'Dynamic Mode enabled\nPlease refresh Theme/Wallpaper manually');
     if (!fs.existsSync(wallWaysDir)) {
       vscode.window.showInformationMessage(
           'Wall-Ways directory does not exist!\n Is HyDE installed?');
       return;
     }
 
-    fs.copyFile(
-        templateSource, path.join(wallWaysDir, 'code.dcol'), (err) => {
-          if (err) {
-            vscode.window.showErrorMessage(
-                `Failed to copy the template: ${err}`);
-          }
-        });
+    fs.copyFile(templateSource, path.join(wallWaysDir, 'code.dcol'), (err) => {
+      if (err) {
+        vscode.window.showErrorMessage(`Failed to copy the template: ${err}`);
+      }
+    });
 
     if (fs.existsSync(path.join(wallDcolDir, 'code.dcol'))) {
       fs.unlink(path.join(wallDcolDir, 'code.dcol'), (err) => {

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "wallbash",
   "displayName": "Wallbash",
   "description": "VSCode dynamic theme using wallbash",
@@ -44,6 +45,7 @@
       {
         "command": "wallBash.update",
         "title": "Update Colors",
+        "description": "Update colors from wallbash and set Wallbash as the current theme",
         "category": "Wallbash"
       }
     ],
@@ -57,9 +59,8 @@
         },
         "wallBash.enableThemeMode": {
           "type": "boolean",
-          "default": false,
-          "title": "Enable Wallbash Dynamic Color",
-          "description": "Wallbash theme will change on theme change instead of wallpaper change"
+          "default": true,
+          "description": "Changes colors ONLY on theme change (Disable for dynamic wallpaper color changes)"
         }
       }
     },
