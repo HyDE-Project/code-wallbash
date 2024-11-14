@@ -38,21 +38,25 @@ By default, the `wallBash.autoUpdate` setting is enabled. This means that Wallba
 ### wallBash.enableThemeMode
 
 - **Type**: `boolean`
-- **Default**: `false`
+- **Default**: `true`
 - **Description**: Enable Wallbash dynamic colors per wallpaper.
 
-By default, the `wallBash.enableThemeMode` setting is disbaled. This means that Wallbash will automatically update your vscode colors whenever the color palette changes.
-You might be wondering why you would want to enable this feature.
+By default, the `wallBash.enableThemeMode` setting is **enabled:**
 
-    By enabling the`wallBash.enableThemeMode` setting your favorite theme can ship a `code.dcol` file and you can use it to generate the theme colors.
+* This mode enables custom **HyDE themes** to override the the Wallbash for Code
+* Code colors will ONLY update upon theme/mode changes.
+* Your favorite theme can ship a `code.dcol` file and you can use it to generate the theme colors.
+
+When set to **false:**
+
+* This means that Wallbash will automatically update your vscode colors whenever the color palette change.
 
 ```json
 {
-    "wallBash.enableThemeMode": true
+    "wallBash.enableThemeMode": false
 }
 
 ```
-
 
 # Usage
 
