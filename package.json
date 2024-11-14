@@ -48,7 +48,14 @@
           "type": "boolean",
           "default": true,
           "description": "Update colors when wallbash changes"
+        },
+        "wallBash.enableThemeMode": {
+          "type": "boolean",
+          "default": false,
+          "title": "Enable Wallbash Dynamic Color",
+          "description": "Wallbash theme will change on theme change instead of wallpaper change"
         }
+
       }
     },
     "themes": [

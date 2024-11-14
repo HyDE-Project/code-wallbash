@@ -17,13 +17,38 @@ Visual Studio Extension to generate Theme Colors using Wallbash
 
 Wallbash provides the following configuration options:
 
-### `wallbash.autoUpdate`
+### `wallBash.autoUpdate`
 
 - **Type**: `boolean`
 - **Default**: `true`
-- **Description**: Enable auto-update of the theme from wal's color palette.
+- **Description**: Update colors when wallbash changes.
 
-By default, the `wallbash.autoUpdate` setting is enabled. This means that Wallbash will automatically update your theme whenever the color palette changes. If you prefer to disable this feature, you can do so by adding the following to your `settings.json` file:
+By default, the `wallBash.autoUpdate` setting is enabled. This means that Wallbash will automatically update your theme whenever the color palette changes. If you prefer to disable this feature, you can do so by adding the following to your `settings.json` file:
+
+```json
+{
+    "wallBash.autoUpdate": false
+}
+
+```
+
+### wallBash.enableThemeMode
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Enable Wallbash dynamic colors per wallpaper.
+
+By default, the `wallBash.enableThemeMode` setting is disbaled. This means that Wallbash will automatically update your vscode colors whenever the color palette changes.
+You might be wondering why you would want to enable this feature.
+
+    By enabling the`wallBash.enableThemeMode` setting your favorite theme can ship a `vscode.dcol` file and you can use it to generate the theme colors.
+
+```json
+{
+    "wallBash.enableThemeMode": true
+}
+
+```
 
 # Usage
 
