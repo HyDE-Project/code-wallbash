@@ -85,12 +85,16 @@ function enforceWallbashTheme(force: boolean = false) {
       vscode.workspace.getConfiguration('workbench').get<string>('colorTheme');
 
       if ((currentTheme !== 'Wallbash' && force) || !currentTheme) {
-    vscode.workspace.getConfiguration('workbench')
-        .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
-        .then((err) => {
-          vscode.window.showErrorMessage(`Failed to set color theme: ${err}`);
-        });
-  }  
+          vscode.workspace.getConfiguration('workbench')
+              .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
+              .then(() => {
+                // vscode.window.showInformationMessage('Color theme updated to Wallbash');
+                console.log('Color theme updated to Wallbash');
+              }, (err) => {
+                // Handle the error
+                vscode.window.showErrorMessage(`Failed to set color theme: ${err}`);
+              });
+      }
 
 
 }
