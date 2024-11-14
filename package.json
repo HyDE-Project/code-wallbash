@@ -43,9 +43,9 @@
   "contributes": {
     "commands": [
       {
-        "command": "wallBash.update",
-        "title": "Update Colors",
-        "description": "Update colors from wallbash and set Wallbash as the current theme",
+        "command": "wallBash.reload",
+        "title": "reload Colors",
+        "description": "Update wallbash colors & set 'Wallbash' as the current theme",
         "category": "Wallbash"
       }
     ],

@@ -20,7 +20,7 @@ let autoUpdateWatcher: chokidar.FSWatcher|null = null;
 export function activate(context: vscode.ExtensionContext) {
   // Register the update command
   let disposable = vscode.commands.registerCommand(
-      'wallBash.update', () => enforceWallbashTheme(true), populateColorThemes);
+      'wallBash.reload', () => enforceWallbashTheme(true), populateColorThemes);
 
 
   context.subscriptions.push(disposable);
