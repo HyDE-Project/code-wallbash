@@ -268,6 +268,10 @@
     "panelTitle.activeBorder": "#F08281",
     "panelTitle.activeForeground": "#FFFFFF",
     "panelTitle.inactiveForeground": "#FFFFFF",
+
+
+
+    
     "peekView.border": "#F08281",
     "peekViewEditor.background": "#030000",
     "peekViewEditorGutter.background": "#030000",
