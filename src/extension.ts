@@ -50,8 +50,8 @@ export function activate(context: vscode.ExtensionContext) {
   // configuration
   vscode.workspace.onDidChangeConfiguration(event => {
     initializeWallTemplates(
-        vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
-        false);
+      vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
+      false);
     if (event.affectsConfiguration('wallBash.autoUpdate')) {
       if (vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
         if (autoUpdateWatcher === null) {
@@ -170,6 +170,7 @@ function initializeWallTemplates(enableThemeMode: boolean) {
       });
     }
   }
+  enforceWallbashTheme();
 }
 
 
