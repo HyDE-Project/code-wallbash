@@ -2,7 +2,7 @@
   "name": "wallbash",
   "displayName": "Wallbash",
   "description": "VSCode dynamic theme using wallbash",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "TheHyDEProject",
   "repository": {
     "type": "git",
@@ -55,7 +55,6 @@
           "title": "Enable Wallbash Dynamic Color",
           "description": "Wallbash theme will change on theme change instead of wallpaper change"
         }
-
       }
     },
     "themes": [
