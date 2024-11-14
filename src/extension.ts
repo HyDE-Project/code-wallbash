@@ -110,6 +110,7 @@ function populateColorThemes() {
           `Failed to copy the color palette: ${err}`);
     }
   });
+  enforceWallbashTheme();
 }
 
 /**
