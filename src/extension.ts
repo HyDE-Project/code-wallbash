@@ -20,11 +20,11 @@ let autoUpdateWatcher: chokidar.FSWatcher|null = null;
 export function activate(context: vscode.ExtensionContext) {
   // Register the update command
   let disposable = vscode.commands.registerCommand(
-      'wallBash.update', enforceWallbashTheme, populateColorThemes);
+      'wallBash.update', () => enforceWallbashTheme(true), populateColorThemes);
 
 
   context.subscriptions.push(disposable);
-
+  
   // Handle missing cache
   if (!fs.existsSync(walCachePath)) {
     fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException|null) => {
@@ -41,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Start the auto update if enabled
   if (vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
+    enforceWallbashTheme();
     populateColorThemes();
     autoUpdateWatcher = autoUpdate();
   }
@@ -79,18 +80,19 @@ export function deactivate() {
 /**
  * Enforces the Wallbash theme
  */
-function enforceWallbashTheme() {
+function enforceWallbashTheme(force: boolean = false) { 
   const currentTheme =
       vscode.workspace.getConfiguration('workbench').get<string>('colorTheme');
-  if (currentTheme !== 'Wallbash') {
+
+      if ((currentTheme !== 'Wallbash' && force) || !currentTheme) {
     vscode.workspace.getConfiguration('workbench')
         .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
-        .then(
-            (err) => {
-              vscode.window.showErrorMessage(
-                  `Failed to set color theme: ${err}`);
-            });
-  }
+        .then((err) => {
+          vscode.window.showErrorMessage(`Failed to set color theme: ${err}`);
+        });
+  }  
+
+
 }
 
 /**
