@@ -24,8 +24,18 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.registerCommand('wallBash.update', populateColorThemes);
   context.subscriptions.push(disposable);
 
+  // Handle missing cache
+  if (!fs.existsSync(walCachePath)) {
+    fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException | null) => {
+      if (err) {
+        vscode.window.showErrorMessage(
+            `Failed to initilize cache: ${err}`);
+      }
+    });
+  }
+
   initializeWallTemplates(
-      vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
+      vscode.workspace.getConfiguration().get<boolean>('wallBash.enableThemeMode') ??
       false);
 
   // Start the auto update if enabled

@@ -10,7 +10,10 @@ Visual Studio Extension to generate Theme Colors using Wallbash
 ## Installation
 
 1. Install the extension from the Visual Studio Code Marketplace.
-2. Copy `./wallbash/vscode.dcol` to you `~/.config/hyde/wallbash/Wall-Ways ` or `~/.config/hyde/wallbash/Wall-Dcol` directory.
+2. This extension will copy `./wallbash/vscode.dcol` to your `~/.config/hyde/wallbash/Wall-Ways` directory by default.
+
+   > See: #wallBash.enableThemeMode
+   >
 3. run `Hyde reload` to update the color pallette.
 
 ## Configuration
@@ -50,6 +53,7 @@ You might be wondering why you would want to enable this feature.
 
 ```
 
+
 # Usage
 
 ### Manual Update
@@ -59,6 +63,10 @@ You can manually update the theme by running the Wallbash: Update command from t
 Please be sure to update any cache required. Run:
 
 `Hyde reload` to update any missing cache files.
+
+# TODO
+
+* Enable Theme Mode by default if more themes are shipped with it.
 
 # Contributing
 
