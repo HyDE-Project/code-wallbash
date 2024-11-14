@@ -30,7 +30,8 @@ export function activate(context: vscode.ExtensionContext) {
 		 * The timeout is required to overcome a limitation of vscode which
 		 * breaks the theme auto-update if updated too early at startup.
 		 */
-		setTimeout(populateColorThemes, 5000);
+		// setTimeout(populateColorThemes, 5000);
+    populateColorThemes();
 		autoUpdateWatcher = autoUpdate();
 	}
 
