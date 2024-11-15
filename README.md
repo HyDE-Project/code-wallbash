@@ -58,6 +58,18 @@ When set to **false:**
 
 ```
 
+### wallBash.debug
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Enable debug mode.
+
+```
+{
+    "wallBash.debug": true
+}
+```
+
 # Usage
 
 ### Manual Update
