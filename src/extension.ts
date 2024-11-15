@@ -131,7 +131,7 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   if (enableThemeMode) {
     console.log('Theme Mode enabled');
-    if (!vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
+    if (vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
       vscode.window.showInformationMessage(
           'Theme Mode enabled\nPlease refresh Theme manually');
     }
@@ -158,7 +158,7 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   } else {
     console.log('Dynamic Wallpaper Mode enabled');
-    if (!vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
+    if (vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
       vscode.window.showInformationMessage(
           'Dynamic Mode enabled\nPlease refresh Theme/Wallpaper manually');
     }

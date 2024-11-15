@@ -65,7 +65,7 @@
         "wallbash.debug": {
           "type": "boolean",
           "default": false,
-          "description": "Silent mode (No notifications)"
+          "description": "Debug mode"
         }
       }
     },
