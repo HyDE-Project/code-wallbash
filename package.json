@@ -13,7 +13,7 @@
   },
   "license": "GPL",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "^1.93.0"
   },
   "extensionKind": [
     "ui",
