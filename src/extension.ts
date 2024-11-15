@@ -4,6 +4,7 @@ code https://github.com/dlasagno/vscode-wal-theme I managed to make it work
 somehow, but I'm not sure if it's the best way to do it.
 - khing
 */
+
 import * as chokidar from 'chokidar';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -24,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 
   context.subscriptions.push(disposable);
-  
+
   // Handle missing cache
   if (!fs.existsSync(walCachePath)) {
     fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException|null) => {
@@ -50,8 +51,8 @@ export function activate(context: vscode.ExtensionContext) {
   // configuration
   vscode.workspace.onDidChangeConfiguration(event => {
     initializeWallTemplates(
-      vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
-      false);
+        vscode.workspace.getConfiguration().get('wallBash.enableThemeMode') ??
+        false);
     if (event.affectsConfiguration('wallBash.autoUpdate')) {
       if (vscode.workspace.getConfiguration().get('wallBash.autoUpdate')) {
         if (autoUpdateWatcher === null) {
@@ -80,23 +81,27 @@ export function deactivate() {
 /**
  * Enforces the Wallbash theme
  */
-function enforceWallbashTheme(force: boolean = false) { 
-  const currentTheme =
-      vscode.workspace.getConfiguration('workbench').get<string>('colorTheme') ?? undefined;
-  
-  if ((currentTheme !== 'Wallbash' && force) || !currentTheme || currentTheme === '' ) {
-      vscode.workspace.getConfiguration('workbench')
-          .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
-          .then(() => {
-              // vscode.window.showInformationMessage('Color theme updated to Wallbash');
+function enforceWallbashTheme(force: boolean = false) {
+  const currentTheme = vscode.workspace.getConfiguration('workbench')
+                           .get<string>('colorTheme') ??
+      undefined;
+
+  if ((currentTheme !== 'Wallbash' && force) || !currentTheme ||
+      currentTheme === '') {
+    vscode.workspace.getConfiguration('workbench')
+        .update('colorTheme', 'Wallbash', vscode.ConfigurationTarget.Global)
+        .then(
+            () => {
+              // vscode.window.showInformationMessage('Color theme updated to
+              // Wallbash');
               console.log('Color theme updated to Wallbash');
-          }, (err) => {
+            },
+            (err) => {
               // Handle the error
-              vscode.window.showErrorMessage(`Failed to set color theme: ${err}`);
-          });
+              vscode.window.showErrorMessage(
+                  `Failed to set color theme: ${err}`);
+            });
   }
-
-
 }
 
 /**
@@ -126,8 +131,12 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   if (enableThemeMode) {
     console.log('Theme Mode enabled');
-    vscode.window.showInformationMessage(
-        'Theme Mode enabled\nPlease refresh Theme manually');
+    if (!vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
+      vscode.window.showInformationMessage(
+          'Theme Mode enabled\nPlease refresh Theme manually');
+    }
+
+
     if (!fs.existsSync(wallDcolDir)) {
       vscode.window.showInformationMessage(
           'Wall-Dcol directory does not exist!\n Is HyDE installed?');
@@ -149,8 +158,10 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
   } else {
     console.log('Dynamic Wallpaper Mode enabled');
-    vscode.window.showInformationMessage(
-        'Dynamic Mode enabled\nPlease refresh Theme/Wallpaper manually');
+    if (!vscode.workspace.getConfiguration().get<boolean>('wallbash.debug')) {
+      vscode.window.showInformationMessage(
+          'Dynamic Mode enabled\nPlease refresh Theme/Wallpaper manually');
+    }
     if (!fs.existsSync(wallWaysDir)) {
       vscode.window.showInformationMessage(
           'Wall-Ways directory does not exist!\n Is HyDE installed?');

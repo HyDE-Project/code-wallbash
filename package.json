@@ -61,6 +61,11 @@
           "type": "boolean",
           "default": true,
           "description": "Changes colors ONLY on theme change (Disable for dynamic wallpaper color changes)"
+        },
+        "wallbash.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Silent mode (No notifications)"
         }
       }
     },
@@ -82,7 +87,6 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.95.0",
     "@types/mocha": "^10.0.9",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
