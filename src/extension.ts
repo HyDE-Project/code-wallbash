@@ -123,11 +123,13 @@ function populateColorThemes() {
  * @param enableThemeMode Whether to enable the theme mode
  */
 function initializeWallTemplates(enableThemeMode: boolean) {
+  // This is use for Old Hyprdots
+  const td = fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ? 'theme' : 'Wall-Dcol';
+  const ad = fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ? 'theme' : 'Wall-Ways';
+
   const templateSource = path.join(__dirname, '..', 'wallbash', 'code.dcol');
-  const wallWaysDir =
-      path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'Wall-Ways');
-  const wallDcolDir =
-      path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'Wall-Dcol');
+  const wallWaysDir = path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', ad);
+  const wallDcolDir = path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', td);
 
   if (enableThemeMode) {
     console.log('Theme Mode enabled');
