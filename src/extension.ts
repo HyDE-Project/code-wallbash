@@ -11,8 +11,9 @@ import * as os from 'os';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const walCachePath = path.join(
-    os.homedir(), '.cache', 'hyde', 'landing', 'vscode-wallbash.json');
+const walCachePath =
+    path.join(os.homedir(), '.cache', 'hyde', 'wallbash', 'code.json');
+
 const targetPath = path.join(__dirname, '..', 'themes', 'wallbash.json');
 const XDG_CONFIG_HOME =
     process.env.XDG_CONFIG_HOME || path.join(os.homedir(), '.config');
@@ -25,6 +26,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 
   context.subscriptions.push(disposable);
+
+  // Ensure the directory for walCachePath exists
+  const walCacheDir = path.dirname(walCachePath);
+  if (!fs.existsSync(walCacheDir)) {
+    fs.mkdirSync(walCacheDir, {recursive: true});
+  }
 
   // Handle missing cache
   if (!fs.existsSync(walCachePath)) {
@@ -124,8 +131,14 @@ function populateColorThemes() {
  */
 function initializeWallTemplates(enableThemeMode: boolean) {
   // This is use for Old Hyprdots
-  const td = fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ? 'theme' : 'Wall-Dcol';
-  const ad = fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ? 'theme' : 'Wall-Ways';
+  const td =
+      fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ?
+      'theme' :
+      'Wall-Dcol';
+  const ad =
+      fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ?
+      'theme' :
+      'Wall-Ways';
 
   const templateSource = path.join(__dirname, '..', 'wallbash', 'code.dcol');
   const wallWaysDir = path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', ad);
