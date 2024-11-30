@@ -3,7 +3,7 @@
   "name": "wallbash",
   "displayName": "Wallbash",
   "description": "VSCode dynamic theme using wallbash",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "publisher": "TheHyDEProject",
   "repository": {
     "type": "git",
