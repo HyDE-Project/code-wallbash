@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
   if (!fs.existsSync(walCachePath)) {
     fs.copyFile(targetPath, walCachePath, (err: NodeJS.ErrnoException|null) => {
       if (err) {
-        vscode.window.showErrorMessage(`Failed to initilize cache: ${err}`);
+        vscode.window.showErrorMessage(`Failed to initialize cache: ${err}`);
       }
     });
   }
@@ -136,8 +136,8 @@ function initializeWallTemplates(enableThemeMode: boolean) {
       'theme' :
       'Wall-Dcol';
   const ad =
-      fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'theme')) ?
-      'theme' :
+      fs.existsSync(path.join(XDG_CONFIG_HOME, 'hyde', 'wallbash', 'always')) ?
+      'always' :
       'Wall-Ways';
 
   const templateSource = path.join(__dirname, '..', 'wallbash', 'code.dcol');
@@ -154,7 +154,7 @@ function initializeWallTemplates(enableThemeMode: boolean) {
 
     if (!fs.existsSync(wallDcolDir)) {
       vscode.window.showInformationMessage(
-          'Wall-Dcol directory does not exist!\n Is HyDE installed?');
+          wallDcolDir, ' directory does not exist!\n Is HyDE installed?');
       return;
     }
 
