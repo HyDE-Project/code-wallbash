@@ -14,7 +14,7 @@ Visual Studio Extension to generate Theme Colors using Wallbash
 
    > See: #wallBash.enableThemeMode
    >
-3. run `hydectl reload` to update the color pallette.
+3. run `hyde-shell reload` to update the color pallette.
 
 ## Configuration
 
@@ -78,7 +78,7 @@ You can manually update the theme by running the Wallbash: Update command from t
 
 Please be sure to update any cache required. Run:
 
-`Hyde reload` to update any missing cache files.
+`hyde-shell reload` to update any missing cache files.
 
 # TODO
 
